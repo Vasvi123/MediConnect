@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chatbot-container">
+        <h2>MediConnect Health Chatbot</h2>
+        <div class="chatbox" id="chatbox"></div>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<style>
+   .chatbot-container {
+    width: 350px;
+    margin: 50px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #f9f9f9;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+.chatbox {
+    height: 250px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: white;
+    margin-bottom: 10px;
+    text-align: left;
+}
+.input-container {
+    display: flex;
+}
+input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+button {
+    padding: 8px 12px;
+    border: none;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+</style>
+<script>
+   const chatbox = document.getElementById("chatbox");
+function sendMessage() {
+    const userInput = document.getElementById("userInput").value;
+    if (!userInput.trim()) return;
+    appendMessage("You", userInput);
+    document.getElementById("userInput").value = "";
+    setTimeout(() => appendMessage("Bot", getBotResponse(userInput)), 1000);
+}
+function handleKeyPress(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+}
+function appendMessage(sender, text) {
+    const msg = document.createElement("p");
+    msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    chatbox.appendChild(msg);
+    chatbox.scrollTop = chatbox.scrollHeight;
+}
+function getBotResponse(query) {
+    query = query.toLowerCase();
+    if (query.includes("symptom")) return "I can help analyze symptoms. Please describe them.";
+    if (query.includes("appointment")) return "Would you like to book an appointment? Provide date & doctor.";
+    if (query.includes("medicine")) return "I can set medicine reminders. Provide details.";
+    if (query.includes("emergency")) return "In case of emergency, call 911 or visit a hospital.";
+    if (query.includes("doctor")) return "I can assist in finding the right doctor for you. What specialty are you looking for?";
+    if (query.includes("health tips")) return "Stay hydrated, eat a balanced diet, and exercise regularly! Anything specific you need help with?";
+    if (query.includes("covid")) return "For COVID-19 related information, visit WHO or CDC official sites for the latest updates.";
+    return "I'm here to help! Ask me about symptoms, appointments, or health advice.";
+}
+
+
+</script>
