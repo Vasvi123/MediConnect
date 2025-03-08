@@ -3,29 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Appointment</title>
+    <title>Book Appointment - MediConnect</title>
     <link rel="stylesheet" href="styles.css">
-</head>
+    <style>
+        /* Reset & Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #333;
+            color: white;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            font-size: 1rem;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 100px;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .booking-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        #confirmation {
+            margin-top: 15px;
+            font-weight: bold;
+            color: green;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        .social-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding-top: 10px;
+        }
+
+        .social-links img {
+            width: 25px;
+            height: 25px;
+        }
+
+    </style>
+</head>
 <body>
-    <h1>Book a Doctor Consultation</h1>
-    <select id="doctor">
-        <option>Dr. Smith</option>
-        <option>Dr. John</option>
-    </select>
-    <input type="date" id="date">
-    <input type="time" id="time">
-    <button onclick="bookAppointment()">Book</button>
-    <p id="confirmation"></p>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Medi<span style="color: blue;">Connect</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="booking.html">Schedule an Appointment</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Book a Doctor Consultation</h1>
+        <div class="booking-form">
+            <select id="doctor">
+                <option value="">Select a Doctor</option>
+                <option value="Dr. Smith">Dr. Smith</option>
+                <option value="Dr. John">Dr. John</option>
+            </select>
+            <input type="date" id="date">
+            <input type="time" id="time">
+            <button onclick="bookAppointment()">Book Appointment</button>
+            <p id="confirmation"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 MediConnect. All Rights Reserved.</p>
+        <ul class="social-links">
+            <li><a href="#"><img src="facebook-icon.png" alt="Facebook"></a></li>
+            <li><a href="#"><img src="twitter-icon.png" alt="Twitter"></a></li>
+            <li><a href="#"><img src="instagram-icon.png" alt="Instagram"></a></li>
+        </ul>
+    </footer>
 
     <script>
+        // Ensure minimum date is today
+        document.getElementById("date").min = new Date().toISOString().split("T")[0];
+
         function bookAppointment() {
             let doctor = document.getElementById("doctor").value;
             let date = document.getElementById("date").value;
             let time = document.getElementById("time").value;
+            let confirmation = document.getElementById("confirmation");
+
+            // Validation
+            if (!doctor) {
+                alert("Please select a doctor.");
+                return;
+            }
+            if (!date) {
+                alert("Please select a valid date.");
+                return;
+            }
+            if (!time) {
+                alert("Please select a valid time.");
+                return;
+            }
+
+            // Save to LocalStorage
             localStorage.setItem("appointment", JSON.stringify({ doctor, date, time }));
-            document.getElementById("confirmation").innerText = `Booked with ${doctor} on ${date} at ${time}`;
+
+            // Display confirmation
+            confirmation.innerText = `✅ Appointment booked with ${doctor} on ${date} at ${time}`;
+            confirmation.style.color = "green";
         }
+
+        // Load appointment on page load (if exists)
+        window.onload = function () {
+            let savedAppointment = localStorage.getItem("appointment");
+            if (savedAppointment) {
+                let { doctor, date, time } = JSON.parse(savedAppointment);
+                document.getElementById("confirmation").innerText = `✅ Appointment with ${doctor} on ${date} at ${time}`;
+            }
+        };
     </script>
+
 </body>
 </html>
+

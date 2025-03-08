@@ -5,20 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medicine Reminder</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #333;
+            color: white;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            font-size: 1rem;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .container {
+            margin-top: 80px; /* Adjusted for fixed navbar */
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        .social-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .social-links li {
+            margin: 0 10px;
+        }
+
+        .reminder-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f4f4f4;
+            padding: 10px;
+            margin: 5px auto;
+            width: 50%;
+            border-radius: 5px;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>Set Medicine Reminder</h1>
-    <input type="text" id="medicine" placeholder="Medicine Name">
-    <input type="time" id="time">
-    <button onclick="setReminder()">Set Reminder</button>
-    <ul id="reminderList"></ul>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Medi<span style="color: blue;">Connect</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="booking.html">Schedule an Appointment</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Set Medicine Reminder</h1>
+        <input type="text" id="medicine" placeholder="Medicine Name">
+        <input type="time" id="time">
+        <button onclick="setReminder()">Set Reminder</button>
+        <ul id="reminderList"></ul>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 MediConnect. All Rights Reserved.</p>
+        <ul class="social-links">
+            <li><a href="#"><img src="facebook-icon.png" alt="Facebook"></a></li>
+            <li><a href="#"><img src="twitter-icon.png" alt="Twitter"></a></li>
+            <li><a href="#"><img src="instagram-icon.png" alt="Instagram"></a></li>
+        </ul>
+    </footer>
+
+    <audio id="alarm-sound" src="alarm.mp3"></audio>
 
     <script>
+        document.addEventListener("DOMContentLoaded", loadReminders);
+
         function setReminder() {
             let medicine = document.getElementById("medicine").value;
             let time = document.getElementById("time").value;
-            localStorage.setItem("reminder", `${medicine} at ${time}`);
-            document.getElementById("reminderList").innerHTML = `<li>${medicine} at ${time}</li>`;
+            if (!medicine || !time) {
+                alert("Please enter medicine name and time.");
+                return;
+            }
+
+            let reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+            reminders.push({ medicine, time });
+            localStorage.setItem("reminders", JSON.stringify(reminders));
+
+            document.getElementById("medicine").value = "";
+            document.getElementById("time").value = "";
+
+            loadReminders();
+        }
+
+        function loadReminders() {
+            let reminderList = document.getElementById("reminderList");
+            reminderList.innerHTML = "";
+            let reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+
+            reminders.forEach((reminder, index) => {
+                let li = document.createElement("li");
+                li.className = "reminder-item";
+                li.innerHTML = `${reminder.medicine} at ${reminder.time} 
+                    <button class="delete-btn" onclick="deleteReminder(${index})">Delete</button>`;
+                reminderList.appendChild(li);
+            });
+
+            checkReminders();
+        }
+
+        function deleteReminder(index) {
+            let reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+            reminders.splice(index, 1);
+            localStorage.setItem("reminders", JSON.stringify(reminders));
+            loadReminders();
+        }
+
+        function checkReminders() {
+            setInterval(() => {
+                let now = new Date();
+                let currentTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+
+                let reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+                reminders.forEach(reminder => {
+                    if (reminder.time === currentTime) {
+                        alert(`Time to take your medicine: ${reminder.medicine}`);
+                        document.getElementById("alarm-sound").play();
+                    }
+                });
+            }, 60000);
         }
     </script>
 </body>
