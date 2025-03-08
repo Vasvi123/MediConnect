@@ -48,6 +48,17 @@
             background-color: rgba(219, 219, 224, 0.803);
             color: #333;
         }
+        body {
+            background-color: lightblue;
+        }
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
 </style>
 <body>
      <!-- Navbar -->
@@ -60,15 +71,32 @@
         <li><a href="#contact">Contact Us</a></li>
     </ul>
   </nav>
-    <!-- Footer -->
-    <footer class="footer">
+   <!-- Footer -->
+   <footer class="footer">
+    <div class="footer-content">
         <p>&copy; 2025 MediConnect. All Rights Reserved.</p>
         <ul class="social-links">
-            <li><a href="#"><img src="facebook-icon.png" alt="Facebook"></a></li>
-            <li><a href="#"><img src="twitter-icon.png" alt="Twitter"></a></li>
-            <li><a href="#"><img src="instagram-icon.png" alt="Instagram"></a></li>
+            <li>
+                <a href="#">
+                    <img src="https://cdn-icons-png.freepik.com/256/15707/15707884.png?semt=ais_hybrid" alt="Facebook">
+                    <span>Facebook</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkbq-094WlodH_1w7xW6QoUqoafZcgLPKbA&s" alt="Twitter">
+                    <span>Twitter</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+                    <span>Instagram</span>
+                </a>
+            </li>
         </ul>
-    </footer>
+    </div>
+</footer>
     <h1>Enter Your Symptoms</h1>
     <input type="text" id="symptoms" placeholder="e.g., fever, cough">
     <button onclick="checkSymptoms()">Check</button>

@@ -170,34 +170,61 @@
       align-self: center;
       width: 150px;
     }
+    /* .footer {
+            background-color: #222;
+            padding: 20px 0;
+            text-align: center;
+        }
 
-    /* Footer */
-    .footer {
-      background-color: #333;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
+        .footer-content p {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+    */
+    
 
-    .footer .social-links {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin: 15px 0 0;
-      padding: 0;
-    }
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
 
-    .footer .social-links li {
-      display: inline;
-    }
+        .social-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            margin-top: auto;
+        }
 
-    .footer .social-links a img {
-      width: 30px;
-      height: 30px;
-    }
+        .social-links li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .social-links a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .social-links img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 5px;
+        }
   </style>
-</head>
+</head> 
 <body>
   <!-- Navbar -->
   <nav class="navbar" id="navbar">
@@ -236,19 +263,32 @@
       <button type="submit" class="btn">Send Message</button>
     </form>
   </section>
-
-  <!-- Footer -->
-  <footer class="footer">
+   <!-- Footer -->
+   <footer class="footer">
     <div class="footer-content">
-      <p>&copy; 2025 MediConnect. All Rights Reserved.</p>
-      <ul class="social-links">
-        <li><a href="#"><img src="facebook-icon.png" alt="Facebook"></a></li>
-        <li><a href="#"><img src="twitter-icon.png" alt="Twitter"></a></li>
-        <li><a href="#"><img src="instagram-icon.png" alt="Instagram"></a></li>
-      </ul>
+        <p>&copy; 2025 MediConnect. All Rights Reserved.</p>
+        <ul class="social-links">
+            <li>
+                <a href="#">
+                    <img src="https://cdn-icons-png.freepik.com/256/15707/15707884.png?semt=ais_hybrid" alt="Facebook">
+                    <span>Facebook</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkbq-094WlodH_1w7xW6QoUqoafZcgLPKbA&s" alt="Twitter">
+                    <span>Twitter</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+                    <span>Instagram</span>
+                </a>
+            </li>
+        </ul>
     </div>
-  </footer>
-
+</footer>
   <script>
     // Navbar scroll effect
     const navbar = document.getElementById("navbar");
