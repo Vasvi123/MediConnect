@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-Treatment Recovery Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #333;
+            color: white;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            font-size: 1rem;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 80px;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        select {
+            padding: 10px;
+            width: 250px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        /* Recovery Guide */
+        #recoveryGuide {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            width: 350px;
+            border: 2px solid black;
+            border-radius: 10px;
+            text-align: left;
+            background-color: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #recoveryGuide p {
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        .social-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .social-links li {
+            margin: 0 10px;
+        }
+
+        .social-links img {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Medi<span style="color: blue;">Connect</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="booking.html">Schedule an Appointment</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Post-Treatment Recovery Guide</h1>
+        <div class="form-group">
+            <select id="treatmentType">
+                <option value="">Select Treatment Type</option>
+                <option value="surgery">Surgery Recovery</option>
+                <option value="dental">Dental Treatment</option>
+                <option value="physiotherapy">Physiotherapy</option>
+                <option value="eye">Eye Surgery</option>
+                <option value="general">General Illness Recovery</option>
+            </select>
+        </div>
+        <button onclick="generateRecovery()">Get Recovery Guide</button>
+        <div id="recoveryGuide">
+            <h2>Recovery Guide</h2>
+            <p><strong>Treatment:</strong> <span id="guideTitle"></span></p>
+            <p><strong>Do’s:</strong></p>
+            <ul id="dosList"></ul>
+            <p><strong>Don’ts:</strong></p>
+            <ul id="dontsList"></ul>
+            <button onclick="downloadGuide()">Download as Image</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 MediConnect. All Rights Reserved.</p>
+        <ul class="social-links">
+            <li><a href="#"><img src="facebook-icon.png" alt="Facebook"></a></li>
+            <li><a href="#"><img src="twitter-icon.png" alt="Twitter"></a></li>
+            <li><a href="#"><img src="instagram-icon.png" alt="Instagram"></a></li>
+        </ul>
+    </footer>
+
+    <script>
+        const recoveryData = {
+            surgery: {
+                title: "Surgery Recovery",
+                dos: ["Follow doctor’s instructions", "Take prescribed medications", "Stay hydrated", "Avoid strenuous activities"],
+                donts: ["Do not lift heavy objects", "Avoid smoking & alcohol", "Do not skip follow-up appointments"]
+            },
+            dental: {
+                title: "Dental Treatment",
+                dos: ["Eat soft foods", "Rinse mouth with warm salt water", "Use prescribed pain relievers"],
+                donts: ["Avoid hot or cold drinks", "Do not touch the treated area"]
+            },
+            physiotherapy: {
+                title: "Physiotherapy",
+                dos: ["Do recommended exercises", "Apply ice packs if needed", "Maintain good posture"],
+                donts: ["Do not overexert yourself", "Avoid sitting for long hours"]
+            },
+            eye: {
+                title: "Eye Surgery",
+                dos: ["Wear protective glasses", "Use prescribed eye drops"],
+                donts: ["Do not rub your eyes", "Avoid direct sunlight exposure"]
+            },
+            general: {
+                title: "General Illness Recovery",
+                dos: ["Get enough sleep", "Drink plenty of fluids", "Eat nutritious food"],
+                donts: ["Avoid junk food", "Do not skip medications"]
+            }
+        };
+
+        function generateRecovery() {
+            let type = document.getElementById("treatmentType").value;
+            if (type === "") return alert("Please select a treatment type!");
+
+            document.getElementById("guideTitle").innerText = recoveryData[type].title;
+            document.getElementById("dosList").innerHTML = recoveryData[type].dos.map(item => `<li>${item}</li>`).join("");
+            document.getElementById("dontsList").innerHTML = recoveryData[type].donts.map(item => `<li>${item}</li>`).join("");
+            document.getElementById("recoveryGuide").style.display = "block";
+        }
+
+        function downloadGuide() {
+            html2canvas(document.getElementById("recoveryGuide")).then(canvas => {
+                let link = document.createElement("a");
+                link.href = canvas.toDataURL("image/png");
+                link.download = "Recovery_Guide.png";
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
