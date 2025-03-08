@@ -6,7 +6,69 @@
     <title>Symptom Checker</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+<style>
+     /* Navbar */
+     .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #333;
+            color: white;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: blue;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            font-size: 1rem;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(219, 219, 224, 0.803);
+            color: #333;
+        }
+</style>
 <body>
+     <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">Medi<span style="color: blue;">Connect</span></div>
+        <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="dashboard.html">Schedule an Appointment</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+    </ul>
+  </nav>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 MediConnect. All Rights Reserved.</p>
+        <ul class="social-links">
+            <li><a href="#"><img src="facebook-icon.png" alt="Facebook"></a></li>
+            <li><a href="#"><img src="twitter-icon.png" alt="Twitter"></a></li>
+            <li><a href="#"><img src="instagram-icon.png" alt="Instagram"></a></li>
+        </ul>
+    </footer>
     <h1>Enter Your Symptoms</h1>
     <input type="text" id="symptoms" placeholder="e.g., fever, cough">
     <button onclick="checkSymptoms()">Check</button>
