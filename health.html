@@ -72,7 +72,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            margin-top: 80px; /* Adjusted for fixed navbar */
+            margin-top: 80px;
             padding: 20px;
         }
 
@@ -114,6 +114,7 @@
             text-align: left;
             background-color: white;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
 
         #healthCard p {
@@ -121,6 +122,9 @@
             margin: 5px 0;
         }
 
+        .download-btn {
+            margin-top: 10px;
+        }
         
         /* Footer */
         .footer {
@@ -129,6 +133,9 @@
             text-align: center;
             padding: 20px;
             margin-top: auto;
+            position: relative;
+            width: 100%;
+            bottom: 0;
         }
 
         .social-links {
@@ -150,7 +157,6 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">Medi<span style="color: blue;">Connect</span></div>
         <ul class="nav-links">
@@ -161,7 +167,6 @@
         </ul>
     </nav>
 
-    <!-- Main Content -->
     <div class="container">
         <h1>Health Card Generator</h1>
         <div class="form-group">
@@ -202,54 +207,9 @@
             <p><strong>Gender:</strong> <span id="cardGender"></span></p>
             <p><strong>Blood Group:</strong> <span id="cardBloodGroup"></span></p>
             <p><strong>Medical Conditions:</strong> <span id="cardMedicalConditions"></span></p>
-            <button onclick="downloadCard()">Download as Image</button>
         </div>
+        <button class="download-btn" onclick="downloadCard()">Download as Image</button>
     </div>
-    <!-- Footer -->
-   <footer class="footer">
-    <div class="footer-content">
-        <p>&copy; 2025 MediConnect. All Rights Reserved.</p>
-        <ul class="social-links">
-            <li>
-                <a href="#">
-                    <img src="https://cdn-icons-png.freepik.com/256/15707/15707884.png?semt=ais_hybrid" alt="Facebook">
-                    <span>Facebook</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkbq-094WlodH_1w7xW6QoUqoafZcgLPKbA&s" alt="Twitter">
-                    <span>Twitter</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
-                    <span>Instagram</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</footer>
-
-    <script>
-        function generateCard() {
-            document.getElementById("cardName").innerText = document.getElementById("name").value;
-            document.getElementById("cardAge").innerText = document.getElementById("age").value;
-            document.getElementById("cardGender").innerText = document.getElementById("gender").value;
-            document.getElementById("cardBloodGroup").innerText = document.getElementById("bloodGroup").value;
-            document.getElementById("cardMedicalConditions").innerText = document.getElementById("medicalConditions").value || "None";
-            document.getElementById("healthCard").style.display = "block";
-        }
-
-        function downloadCard() {
-            html2canvas(document.getElementById("healthCard")).then(canvas => {
-                let link = document.createElement("a");
-                link.href = canvas.toDataURL("image/png");
-                link.download = "Health_Card.png";
-                link.click();
-            });
-        }
-    </script>
+    <div class="footer">&copy; 2025 MediConnect. All Rights Reserved.</div>
 </body>
 </html>
