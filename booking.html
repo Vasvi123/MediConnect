@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Book a Doctor Consultation</h1>
+    <select id="doctor">
+        <option>Dr. Smith</option>
+        <option>Dr. John</option>
+    </select>
+    <input type="date" id="date">
+    <input type="time" id="time">
+    <button onclick="bookAppointment()">Book</button>
+    <p id="confirmation"></p>
+
+    <script>
+        function bookAppointment() {
+            let doctor = document.getElementById("doctor").value;
+            let date = document.getElementById("date").value;
+            let time = document.getElementById("time").value;
+            localStorage.setItem("appointment", JSON.stringify({ doctor, date, time }));
+            document.getElementById("confirmation").innerText = `Booked with ${doctor} on ${date} at ${time}`;
+        }
+    </script>
+</body>
+</html>

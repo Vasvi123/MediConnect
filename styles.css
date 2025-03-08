@@ -1,0 +1,115 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  
+  /* Navbar */
+  .navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style: none;
+  }
+  
+  .nav-links li {
+    margin: 0 15px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+  }
+  
+  /* Welcome Section */
+  .welcome-section {
+    text-align: center;
+    padding: 40px 20px;
+    background: #007bff;
+    color: #fff;
+  }
+  
+  .welcome-section h1 {
+    font-size: 2rem;
+  }
+  
+  .feature-buttons {
+    margin-top: 20px;
+  }
+  
+  .btn {
+    text-decoration: none;
+    background: #ffb400;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #000;
+    margin: 10px;
+  }
+  
+  /* Parking Map */
+  .parking-map {
+    padding: 20px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+  }
+  
+  .slot {
+    border: 1px solid #333;
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ccc;
+    transition: background-color 0.3s;
+  }
+  
+  .slot:hover {
+    background-color: #aaf;
+  }
+  
+  .slot.reserved {
+    background-color: #f66;
+    cursor: not-allowed;
+  }
+  
+  .slot.available {
+    background-color: #6f6;
+  }
+  
+  /* Admin Dashboard */
+  .admin-dashboard {
+    padding: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  
+
+  

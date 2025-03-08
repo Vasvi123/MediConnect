@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: #f5f5f5;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #333;;
+            color: white;
+            z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: blue;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            font-size: 1rem;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(219, 219, 224, 0.803);
+            color: #333;
+        }
+
+        /* Responsive Navbar */
+        .hamburger {
+            display: none;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Dashboard Section */
+        .dashboard {
+            padding: 120px 20px;
+            text-align: center;
+        }
+
+        .dashboard h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        /* Dashboard Buttons */
+        .dashboard-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .dashboard-buttons button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .dashboard-buttons button:hover {
+            background: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #007BFF;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            .nav-links li {
+                display: block;
+                padding: 10px;
+            }
+
+            .nav-links a {
+                display: block;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .dashboard-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        /* Footer */
+    .footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .footer .social-links {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0 0;
+      padding: 0;
+    }
+
+    .footer .social-links li {
+      display: inline;
+    }
+
+    .footer .social-links a img {
+      width: 30px;
+      height: 30px;
+    }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">Medi<span style="color: white;">Connect</span></div>
+        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="booking.html">Schedule an Appointment</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard">
+        <h1>Patient Dashboard</h1>
+        <div class="dashboard-buttons">
+            <button onclick="location.href='diagnose.html'">Check Symptoms</button>
+            <button onclick="location.href='booking.html'">Book a Doctor</button>
+            <button onclick="location.href='video.html'">Start Video Consultation</button>
+            <button onclick="location.href='reminder.html'">Set Medicine Reminders</button>
+            <button onclick="location.href='healthcard.html'">Generate Health Card</button>
+            <button onclick="location.href='tracker.html'">Post Treatment</button>
+        </div>
+    </section>
+     <!-- Footer -->
+    <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 ParkEasy. All Rights Reserved.</p>
+      <ul class="social-links">
+        <li><a href="#"><img src="facebook-icon.png" alt="Facebook"></a></li>
+        <li><a href="#"><img src="twitter-icon.png" alt="Twitter"></a></li>
+        <li><a href="#"><img src="instagram-icon.png" alt="Instagram"></a></li>
+      </ul>
+    </div>
+    </footer>
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById("navbar");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
+        // Toggle Mobile Menu
+        function toggleMenu() {
+            let nav = document.querySelector(".nav-links");
+            nav.style.display = nav.style.display === "block" ? "none" : "block";
+        }
+    </script>
+
+</body>
+</html>
+

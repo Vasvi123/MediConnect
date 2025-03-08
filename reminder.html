@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Reminder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Set Medicine Reminder</h1>
+    <input type="text" id="medicine" placeholder="Medicine Name">
+    <input type="time" id="time">
+    <button onclick="setReminder()">Set Reminder</button>
+    <ul id="reminderList"></ul>
+
+    <script>
+        function setReminder() {
+            let medicine = document.getElementById("medicine").value;
+            let time = document.getElementById("time").value;
+            localStorage.setItem("reminder", `${medicine} at ${time}`);
+            document.getElementById("reminderList").innerHTML = `<li>${medicine} at ${time}</li>`;
+        }
+    </script>
+</body>
+</html>
