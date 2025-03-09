@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
             flex-direction: column;
             min-height: 100vh;
             font-family: Arial, sans-serif;
-            background-color:lightblue
+            background-color: lightblue;
         }
 
         /* Navbar */
@@ -114,7 +115,6 @@
             cursor: pointer;
             border-radius: 3px;
         }
-
     </style>
 </head>
 <body>
@@ -148,8 +148,10 @@
         </ul>
     </footer>
 
+    <!-- Alarm Sound -->
     <audio id="alarm-sound" src="alarm.mp3"></audio>
 
+    <!-- JavaScript for Reminder Logic -->
     <script>
         document.addEventListener("DOMContentLoaded", loadReminders);
 
@@ -162,13 +164,15 @@
             }
 
             let reminders = JSON.parse(localStorage.getItem("reminders")) || [];
-            reminders.push({ medicine, time });
+            let reminder = { medicine, time };
+            reminders.push(reminder);
             localStorage.setItem("reminders", JSON.stringify(reminders));
 
             document.getElementById("medicine").value = "";
             document.getElementById("time").value = "";
 
             loadReminders();
+            scheduleReminder(reminder);
         }
 
         function loadReminders() {
@@ -182,9 +186,10 @@
                 li.innerHTML = `${reminder.medicine} at ${reminder.time} 
                     <button class="delete-btn" onclick="deleteReminder(${index})">Delete</button>`;
                 reminderList.appendChild(li);
-            });
 
-            checkReminders();
+                // Schedule reminder alerts
+                scheduleReminder(reminder);
+            });
         }
 
         function deleteReminder(index) {
@@ -194,19 +199,19 @@
             loadReminders();
         }
 
-        function checkReminders() {
-            setInterval(() => {
-                let now = new Date();
-                let currentTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+        function scheduleReminder(reminder) {
+            let now = new Date();
+            let reminderTime = new Date();
+            let [hours, minutes] = reminder.time.split(":");
+            reminderTime.setHours(hours, minutes, 0, 0);
 
-                let reminders = JSON.parse(localStorage.getItem("reminders")) || [];
-                reminders.forEach(reminder => {
-                    if (reminder.time === currentTime) {
-                        alert(`Time to take your medicine: ${reminder.medicine}`);
-                        document.getElementById("alarm-sound").play();
-                    }
-                });
-            }, 60000);
+            let timeDifference = reminderTime - now;
+            if (timeDifference > 0) {
+                setTimeout(() => {
+                    alert(`⏰ Time to take your medicine: ${reminder.medicine}`);
+                    document.getElementById("alarm-sound").play();
+                }, timeDifference);
+            }
         }
     </script>
 </body>

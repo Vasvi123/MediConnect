@@ -181,44 +181,40 @@
     </footer>
 
     <script>
-        async function bookAppointment() {
-            let doctor = document.getElementById("doctor").value;
-            let date = document.getElementById("date").value;
-            let time = document.getElementById("time").value;
-            let confirmation = document.getElementById("confirmation");
+        function bookAppointment() {
+    let doctor = document.getElementById("doctor").value;
+    let date = document.getElementById("date").value;
+    let time = document.getElementById("time").value;
+    let confirmation = document.getElementById("confirmation");
 
-            // Validation
-            if (!doctor || !date || !time) {
-                alert("Please fill in all fields.");
-                return;
-            }
+    // Validation
+    if (!doctor) {
+        alert("Please select a doctor.");
+        return;
+    }
+    if (!date) {
+        alert("Please select a valid date.");
+        return;
+    }
+    if (!time) {
+        alert("Please select a valid time.");
+        return;
+    }
 
-            let formData = new FormData();
-            formData.append("doctor", doctor);
-            formData.append("date", date);
-            formData.append("time", time);
+    // Save to LocalStorage
+    localStorage.setItem("appointment", JSON.stringify({ doctor, date, time }));
 
-            try {
-                let response = await fetch("book_appointment.php", {
-                    method: "POST",
-                    body: formData
-                });
+    // Display confirmation
+    confirmation.innerText = `✅ Appointment booked with ${doctor} on ${date} at ${time}`;
+    confirmation.style.color = "green";
+}
 
-                let result = await response.json();
-
-                if (result.success) {
-                    confirmation.innerText = `✅ Appointment booked with ${doctor} on ${date} at ${time}`;
-                    confirmation.style.color = "green";
-                } else {
-                    confirmation.innerText = "❌ Failed to book appointment.";
-                    confirmation.style.color = "red";
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                confirmation.innerText = "❌ Error connecting to server.";
-                confirmation.style.color = "red";
-            }
-        }
+// Load appointment on page load (if exists)
+window.onload = function () {
+    let savedAppointment = localStorage.getItem("appointment");
+    if (savedAppointment) {
+        let { doctor, date, time } = JSON.parse(savedAppointment);
+        document.getElementById("confirmation").innerText = `✅ Appointment with ${doctor} on ${date} at ${time}`;
+    }
+};
     </script>
-</body>
-</html>
