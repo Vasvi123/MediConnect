@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Symptom Checker</title>
     <link rel="stylesheet" href="styles.css">
-</head>
-<style>
-     /* Navbar */
-     .navbar {
+    <style>
+        /* Navbar Styles */
+        .navbar {
             position: fixed;
             top: 0;
             left: 0;
@@ -16,92 +15,219 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 15px 30px;
             background-color: #333;
-            color: white;
+            color: blue;
             z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
-            color: blue;
+            color: gainsboro;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
             gap: 15px;
-            margin: 0;
-            padding: 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-links li {
+            display: inline;
         }
 
         .nav-links a {
             font-size: 1rem;
             color: white;
-            padding: 10px 15px;
+            padding: 10px 25px;
             border-radius: 5px;
-            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .nav-links a:hover {
             background-color: rgba(219, 219, 224, 0.803);
             color: #333;
         }
+
+        /* Body and Container */
         body {
-            background-color: lightblue;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: rgb(111, 100, 175);
+            font-family: cursive;
+            text-align: center;
+            padding-top: 80px;
         }
+
+        .container {
+            max-width: 2000px;
+            margin: 0px; /* Centering */
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            flex-grow: 1; /* Pushes footer to bottom */
+        }
+
+        h1 {
+            color: #333;
+            font-size: 47px;
+        }
+
+        input {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: blue;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: darkred;
+        }
+
         /* Footer */
         .footer {
             background-color: #333;
             color: white;
             text-align: center;
             padding: 20px;
-            margin-top: auto;
+            width: 100%;
+            margin-top: auto; /* Ensures footer stays at the bottom */
         }
-</style>
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding-top: 10px;
+        }
+
+        .social-links a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-size: 14px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .social-links a:hover {
+            color: lightblue;
+        }
+
+        .social-links img {
+            width: 24px;
+            height: 24px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .social-links a:hover img {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
 <body>
-     <!-- Navbar -->
-    <nav class="navbar" id="navbar">
+    <!-- Navbar -->
+    <nav class="navbar">
         <div class="logo">Medi<span style="color: blue;">Connect</span></div>
         <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="dashboard.html">Schedule an Appointment</a></li>
-        <li><a href="#contact">Contact Us</a></li>
-    </ul>
-  </nav>
-   <!-- Footer -->
-   <footer class="footer">
-    <div class="footer-content">
-        <p>&copy; 2025 MediConnect. All Rights Reserved.</p>
-        <ul class="social-links">
-            <li>
-                <a href="#">
-                    <img src="https://cdn-icons-png.freepik.com/256/15707/15707884.png?semt=ais_hybrid" alt="Facebook">
-                    <span>Facebook</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkbq-094WlodH_1w7xW6QoUqoafZcgLPKbA&s" alt="Twitter">
-                    <span>Twitter</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
-                    <span>Instagram</span>
-                </a>
-            </li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="dashboard.html">Schedule an Appointment</a></li>
+            <li><a href="#contact">Contact Us</a></li>
         </ul>
-    </div>
-</footer>
-    <h1>Enter Your Symptoms</h1>
-    <input type="text" id="symptoms" placeholder="e.g., fever, cough">
-    <button onclick="checkSymptoms()">Check</button>
-    <p id="result"></p>
+    </nav>
 
-    <script src="script.js"></script>
+    <!-- Symptom Checker -->
+    <div class="container">
+        <h1>Enter Your Symptoms</h1>
+        <input type="text" id="symptoms" placeholder="e.g., fever, cough">
+        <button onclick="checkSymptoms()">Check</button>
+        <p id="result"></p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 MediConnect. All Rights Reserved.</p>
+        <div class="social-links">
+            <a href="#">
+                <img src="https://cdn-icons-png.freepik.com/256/15707/15707884.png?semt=ais_hybrid" alt="Facebook">
+                Facebook
+            </a>
+            <a href="#">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkbq-094WlodH_1w7xW6QoUqoafZcgLPKbA&s" alt="Twitter">
+                Twitter
+            </a>
+            <a href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+                Instagram
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        function checkSymptoms() {
+            const symptomInput = document.getElementById("symptoms").value.toLowerCase();
+            const symptomsArray = symptomInput.split(",").map(symptom => symptom.trim());
+            
+            const diseaseDatabase = {
+                "fever, cough, sore throat": "Flu",
+                "fever, chills, sweating": "Malaria",
+                "fatigue, weight loss, night sweats": "Tuberculosis",
+                "shortness of breath, chest pain, fatigue": "Pneumonia",
+                "rash, itching, swelling": "Allergic Reaction",
+                "diarrhea, stomach pain, vomiting": "Food Poisoning",
+                "joint pain, swelling, stiffness": "Arthritis",
+                "frequent urination, thirst, fatigue": "Diabetes",
+                "high blood pressure, headaches, dizziness": "Hypertension",
+                "severe headache, nausea, sensitivity to light": "Migraine"
+            };
+
+            let diagnosis = "No matching disease found. Please consult a doctor.";
+            for (const [symptoms, disease] of Object.entries(diseaseDatabase)) {
+                if (symptomsArray.every(symptom => symptoms.includes(symptom))) {
+                    diagnosis = `Possible Condition: <strong>${disease}</strong>`;
+                    break;
+                }
+            }
+
+            document.getElementById("result").innerHTML = diagnosis;
+        }
+    </script>
 </body>
 </html>
+
+
